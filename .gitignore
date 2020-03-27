@@ -212,4 +212,6 @@ pip-selfcheck.json
 
 
 geckodriver.log
+moche_scrapper.log
 moche_stats.csv
+moche_stats/**
