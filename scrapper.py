@@ -86,22 +86,21 @@ def moche_area_login(browser, credentials):
 def moche_area_get_dashboard(browser):
     """Go to the Moche Area Dashboard and get the values."""
 
-    stats = None
-
     try:
+        stats = {}
         browser.get(url=MOCHE_AREA_URL)
         WebDriverWait(browser, 20).until(EC.visibility_of_element_located((By.XPATH, INTERNET_TEXT_1)))
         stats['internet_text'] = [browser.find_element(By.XPATH, INTERNET_TEXT_1).text, browser.find_element(By.XPATH, INTERNET_TEXT_2).text]
         stats['apps_text'] = [browser.find_element(By.XPATH, APPS_TEXT_1).text, browser.find_element(By.XPATH, APPS_TEXT_2).text]
         stats['video_text'] = [browser.find_element(By.XPATH, VIDEO_TEXT_1).text, browser.find_element(By.XPATH, VIDEO_TEXT_2).text]
+        return stats
     except TimeoutException:
         logging.error("TimeoutException", exc_info=True)
     except NoSuchElementException:
         logging.error("NoSuchElementException", exc_info=True)
     except WebDriverException:
         logging.error("WebDriverException", exc_info=True)
-
-    return stats
+    return None
 
 
 def parse_moche_dashboard_values(stats):
